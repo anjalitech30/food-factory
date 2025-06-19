@@ -1,47 +1,76 @@
-import { useState } from 'react';
+// src/pages/Feedback.jsx
+import React, { useState, useRef } from 'react';
+import './Feedback.css';
 
 export default function Feedback() {
   const [msg, setMsg] = useState('');
-  const [rating, setRating] = useState(5);
+  const [rating, setRating] = useState('5⭐');
+  const email = localStorage.getItem('ff-user') || '';   // email from login
+  const formRef = useRef(null);
 
-  const submit = () => {
-    if (!msg.trim()) return alert('Please write something first 🙂');
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-    // open default email client with feedback
-    const mail = `mailto:ankus@example.com
-      ?subject=Food Factory Feedback (${rating}/5)
-      &body=${encodeURIComponent(msg)}`.replace(/\s+/g, '');
-    window.location.href = mail;       // triggers email compose
+    // Simple front‑end validation
+    if (!msg.trim()) {
+      alert('Please write something first 🙂');
+      return;
+    }
 
-    alert('Thanks for your feedback! 📧');
-    setMsg('');
-    setRating(5);
+    // If everything is fine, submit the HTML form to Formspree
+    formRef.current.submit();
   };
 
   return (
-    <div className="container">
-      <h2>Feedback</h2>
+    <div className="feedback-container">
+      <h2>Give Us Your Feedback</h2>
 
-      <label>Rate us:</label>
-      <select value={rating} onChange={e => setRating(+e.target.value)}>
-        {[1,2,3,4,5].map(n => <option key={n}>{n}</option>)}
-      </select>
+      <form
+        ref={formRef}
+        onSubmit={handleSubmit}
+        action="https://formspree.io/f/mdkzlajl"
+        method="POST"
+        className="feedback-form"
+      >
+        {/* hidden field lets Formspree reply directly */}
+        <input type="hidden" name="_replyto" value={email} />
 
-      <textarea
-        style={{ width: '100%', marginTop: 12, padding: 10 }}
-        rows="6"
-        placeholder="Write your feedback…"
-        value={msg}
-        onChange={e => setMsg(e.target.value)}
-      />
+        <label>
+          Your Email:
+          <input
+            type="email"
+            name="email"
+            value={email}
+            readOnly
+            placeholder="login required"
+            required
+          />
+        </label>
 
-      <button
-        onClick={submit}
-        style={{ marginTop: 12, padding:'6px 16px', background:'#ff6347', color:'#fff',
-                 border:'none', borderRadius:6 }}>
-        Send
-      </button>
-      <p style={{fontSize:12, marginTop:8}}>✉ Feedback is e-mailed to <strong>anjalidreams30@gmail.com</strong>.</p>
+        <label>
+          Rating:
+          <select name="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
+            <option value="5⭐">5 ⭐ Excellent</option>
+            <option value="4⭐">4 ⭐ Good</option>
+            <option value="3⭐">3 ⭐ Average</option>
+            <option value="2⭐">2 ⭐ Poor</option>
+            <option value="1⭐">1 ⭐ Very Bad</option>
+          </select>
+        </label>
+
+        <label>
+          Your Feedback:
+          <textarea
+            name="message"
+            rows="4"
+            value={msg}
+            onChange={(e) => setMsg(e.target.value)}
+            required
+          />
+        </label>
+
+        <button type="submit">Send Feedback</button>
+      </form>
     </div>
   );
 }
