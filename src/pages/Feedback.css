@@ -1,18 +1,50 @@
-/* --- star rating --- */
-.star-rating {
-  font-size: 1.8rem;
-  color: #ccc;
-  cursor: pointer;
-  margin-top: 5px;
-}
-
-.star-rating .star.filled {
-  color: gold;
-  transition: color 0.2s;
-}
-
-.rating-label {
+.feedback-container {
   display: flex;
   flex-direction: column;
-  margin-bottom: 15px;
+  align-items: center;
+  padding: 30px;
+  background-color: #f9f9f9;
+}
+
+.feedback-container h2 {
+  font-size: 28px;
+  margin-bottom: 20px;
+  color: #222;
+}
+
+.feedback-form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 500px;
+}
+
+.feedback-form label {
+  font-weight: 600;
+  margin-top: 15px;
+}
+
+.feedback-form input,
+.feedback-form textarea,
+.feedback-form select {
+  padding: 10px;
+  margin-top: 5px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.feedback-form button {
+  margin-top: 20px;
+  padding: 10px;
+  background-color: #ff6347;
+  color: white;
+  font-size: 18px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.feedback-form button:hover {
+  background-color: #e0533b;
 }
