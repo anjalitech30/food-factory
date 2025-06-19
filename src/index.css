@@ -1,0 +1,71 @@
+/* --- global reset & fonts --- */
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #fafafa;
+  color: #333;
+}
+
+/* --- reusable layout helper --- */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+/* --- category tabs --- */
+.tabs {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+.tab {
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  background: #eee;
+  transition: 0.2s;
+}
+.tab.active {
+  background: #ff6347;
+  color: #fff;
+}
+
+/* --- grid & cards --- */
+.menu-grid {
+  display: grid;
+  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+}
+.card {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,.1);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+}
+.card img {
+  height: 140px;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+.tag { font-size: 14px; margin: 2px 0; }
+.tag.veg    { color: green; }
+.tag.nonveg { color: red; }
+.price { font-weight: bold; color: #ff6347; }
+.qtybox {
+  display: flex; align-items: center; gap: 8px; margin-top: 6px;
+}
+.qtybox button { padding: 0 10px; }
+.add-btn {
+  margin-top: 10px;
+  padding: 6px 12px;
+  background: #ff6347;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
