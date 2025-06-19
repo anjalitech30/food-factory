@@ -3,22 +3,18 @@ import React, { useState, useRef } from 'react';
 import './Feedback.css';
 
 export default function Feedback() {
-  const [msg, setMsg] = useState('');
-  const [rating, setRating] = useState('5⭐');
-  const email = localStorage.getItem('ff-user') || '';   // email from login
+  const [msg, setMsg]     = useState('');
+  const [rating, setRating] = useState(5);                // numeric 1‑5
+  const email = localStorage.getItem('ff-user') || '';    // from login
   const formRef = useRef(null);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Simple front‑end validation
     if (!msg.trim()) {
       alert('Please write something first 🙂');
       return;
     }
-
-    // If everything is fine, submit the HTML form to Formspree
-    formRef.current.submit();
+    formRef.current.submit();   // send to Formspree
   };
 
   return (
@@ -32,30 +28,30 @@ export default function Feedback() {
         method="POST"
         className="feedback-form"
       >
-        {/* hidden field lets Formspree reply directly */}
+        {/* Formspree will reply to this address */}
         <input type="hidden" name="_replyto" value={email} />
 
         <label>
           Your Email:
-          <input
-            type="email"
-            name="email"
-            value={email}
-            readOnly
-            placeholder="login required"
-            required
-          />
+          <input type="email" name="email" value={email} readOnly required />
         </label>
 
-        <label>
+        <label className="rating-label">
           Rating:
-          <select name="rating" value={rating} onChange={(e) => setRating(e.target.value)}>
-            <option value="5⭐">5 ⭐ Excellent</option>
-            <option value="4⭐">4 ⭐ Good</option>
-            <option value="3⭐">3 ⭐ Average</option>
-            <option value="2⭐">2 ⭐ Poor</option>
-            <option value="1⭐">1 ⭐ Very Bad</option>
-          </select>
+          <div className="star-rating">
+            {[1, 2, 3, 4, 5].map((star) => (
+              <span
+                key={star}
+                className={`star ${star <= rating ? 'filled' : ''}`}
+                onClick={() => setRating(star)}
+                role="button"
+              >
+                ★
+              </span>
+            ))}
+          </div>
+          {/* send rating (1–5 stars) to Formspree */}
+          <input type="hidden" name="rating" value={`${rating} Stars`} />
         </label>
 
         <label>
