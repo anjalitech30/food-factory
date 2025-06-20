@@ -54,3 +54,27 @@
   color: #555;
   margin-top: 8px;
 }
+
+/* star rating look */
+.star-rating {
+  font-size: 1.8rem;
+  color: #ccc;
+  cursor: pointer;
+}
+
+.star.filled {
+  color: gold;
+  transition: color 0.2s;
+}
+
+.rating-label {
+  display: flex;
+  flex-direction: column;
+  margin: 12px 0;
+}
+
+.note {
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 6px;
+}

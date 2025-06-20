@@ -38,31 +38,32 @@ const Feedback = () => {
         />
 
         {/* ---------- STAR RATING (click‑to‑gold) ---------- */}
+{/* ───────── Rating + Submit ───────── */}
 <label className="rating-label">
-  Rating:
+  Rating&nbsp;
   <div className="star-rating">
     {[1, 2, 3, 4, 5].map((star) => (
       <span
         key={star}
         className={`star ${star <= rating ? 'filled' : ''}`}
-        onClick={() => setRating(star)}      // store numeric 1‑5
+        onClick={() => setRating(star)}
         role="button"
       >
         ★
       </span>
     ))}
   </div>
-
-  {/* hidden field: sends rating to Formspree */}
+  {/* hidden to send rating to Formspree */}
   <input type="hidden" name="rating" value={`${rating} Stars`} />
 </label>
 
+<button type="submit">Send Feedback</button>
 
-        <button type="submit">Send Feedback</button>
-{/*  ── New line to show your email to users ── */}
+{/* visible note with your email */}
 <p className="note">
-  Feedback is delivered directly to <strong>anjalidreams30@gmail.com</strong>
+  Feedback goes directly to <strong>anjalidreams30@gmail.com</strong>
 </p>
+
 
       </form>
     </div>
