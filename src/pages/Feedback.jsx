@@ -37,19 +37,33 @@ const Feedback = () => {
           onChange={(e) => setMsg(e.target.value)}
         />
 
-        <div className="stars">
-          {[1, 2, 3, 4, 5].map((num) => (
-            <span
-              key={num}
-              className={rating >= num ? 'star filled' : 'star'}
-              onClick={() => setRating(num)}
-            >
-              ★
-            </span>
-          ))}
-        </div>
+        {/* ---------- STAR RATING (click‑to‑gold) ---------- */}
+<label className="rating-label">
+  Rating:
+  <div className="star-rating">
+    {[1, 2, 3, 4, 5].map((star) => (
+      <span
+        key={star}
+        className={`star ${star <= rating ? 'filled' : ''}`}
+        onClick={() => setRating(star)}      // store numeric 1‑5
+        role="button"
+      >
+        ★
+      </span>
+    ))}
+  </div>
+
+  {/* hidden field: sends rating to Formspree */}
+  <input type="hidden" name="rating" value={`${rating} Stars`} />
+</label>
+
 
         <button type="submit">Send Feedback</button>
+{/*  ── New line to show your email to users ── */}
+<p className="note">
+  Feedback is delivered directly to <strong>anjalidreams30@gmail.com</strong>
+</p>
+
       </form>
     </div>
   );
